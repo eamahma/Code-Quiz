@@ -24,6 +24,9 @@ var questions = [{
 
 // global variables
 var currentQuestion = 0;
+var correctAnswers = 0;
+var answeredFlag = false;
+var quizOverFlag = false;
 
 // define body of document
 var body = document.body;
@@ -83,81 +86,110 @@ result.setAttribute("style", "color: gray; font-style: italic; margin: auto; wid
 
 // mouse event hover over answers to change back ground volor
 span1.addEventListener("mouseover", event =>{
-    span1.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #800080;");
+    if (!answeredFlag) {
+        span1.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #800080;");
+    }
 });
 
 span1.addEventListener("mouseout", event =>{
-    span1.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
+    if (!answeredFlag) {
+        span1.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
+    }
 });
 
 span2.addEventListener("mouseover", event =>{
-    span2.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #800080;");
+    if (!answeredFlag) {
+        span2.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #800080;");
+    }
 });
 
 span2.addEventListener("mouseout", event =>{
-    span2.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
+    if (!answeredFlag) {
+        span2.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
+    }
 });
 
 span3.addEventListener("mouseover", event =>{
-    span3.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #800080;");
+    if (!answeredFlag) {
+        span3.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #800080;");
+    }
 });
 
 span3.addEventListener("mouseout", event =>{
-    span3.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
+    if (!answeredFlag) {
+        span3.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
+    }
 });
 
 span4.addEventListener("mouseover", event =>{
-    span4.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #800080;");
+    if (!answeredFlag) {
+        span4.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #800080;");
+    }
 });
 
 span4.addEventListener("mouseout", event =>{
-    span4.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
-});
-
-// mouse event hover over answers to change back ground volor
-span1.addEventListener("mouseover", event =>{
-    span1.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #800080;");
-});
-
-
-listEl.addEventListener("click", event =>{
-    // console.log("list clicked");
+    if (!answeredFlag) {
+        span4.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
+    }
 });
 
 span1.addEventListener("click", event => {
-    result.setAttribute("style", "display: on; color: gray; font-style: italic; margin: auto; width: 50%; text-align: left; font-size: 20px");
-    if(questions[currentQuestion].answer == 0){
-        result.textContent = "Correct";
-    } else {
-        result.textContent = "Wrong";
-    }
+    // once answered do not let select another answer
+    if (!answeredFlag) {
+        // if correct answer is first choice
+        if(questions[currentQuestion].answer == 0){
+            result.textContent = "Correct";
+            correctAnswers++;
+        } else {
+            result.textContent = "Wrong";
+        }
+        result.setAttribute("style", "display: on; color: gray; font-style: italic; margin: auto; width: 50%; text-align: left; font-size: 20px");
+        answeredFlag = true;
+    } 
 });
 
 span2.addEventListener("click", event => {
-    result.setAttribute("style", "display: on; color: gray; font-style: italic; margin: auto; width: 50%; text-align: left; font-size: 20px");
-    if(questions[currentQuestion].answer == 1){
-        result.textContent = "Correct";
-    } else {
-        result.textContent = "Wrong";
-    }
+    // once answered do not let select another answer
+    if (!answeredFlag) {
+        // if correct answer is second choice
+        if(questions[currentQuestion].answer == 1){
+            result.textContent = "Correct";
+            correctAnswers++;
+        } else {
+            result.textContent = "Wrong";
+        }
+        result.setAttribute("style", "display: on; color: gray; font-style: italic; margin: auto; width: 50%; text-align: left; font-size: 20px");
+        answeredFlag = true;
+    }   
 });
 
 span3.addEventListener("click", event => {
-    result.setAttribute("style", "display: on; color: gray; font-style: italic; margin: auto; width: 50%; text-align: left; font-size: 20px");
-    if(questions[currentQuestion].answer == 2){
-        result.textContent = "Correct";
-    } else {
-        result.textContent = "Wrong";
-    }
+    // once answered do not let select another answer
+    if (!answeredFlag) {
+        // if correct answer is third choice
+        if(questions[currentQuestion].answer == 2){
+            result.textContent = "Correct";
+            correctAnswers++;
+        } else {
+            result.textContent = "Wrong";
+        }
+        result.setAttribute("style", "display: on; color: gray; font-style: italic; margin: auto; width: 50%; text-align: left; font-size: 20px");
+        answeredFlag = true;
+    } 
 });
 
 span4.addEventListener("click", event => {
-    result.setAttribute("style", "display: on; color: gray; font-style: italic; margin: auto; width: 50%; text-align: left; font-size: 20px");
-    if(questions[currentQuestion].answer == 3){
-        result.textContent = "Correct";
-    } else {
-        result.textContent = "Wrong";
-    }
+    if (!answeredFlag) {
+        // if correct answer is fourth choice
+        if(questions[currentQuestion].answer == 3){
+            result.textContent = "Correct";
+            correctAnswers++;
+        } else {
+            result.textContent = "Wrong";
+        }
+        result.setAttribute("style", "display: on; color: gray; font-style: italic; margin: auto; width: 50%; text-align: left; font-size: 20px");
+        answeredFlag = true;
+    } 
 });
 
 function runningTimer() {
@@ -175,6 +207,12 @@ function runningTimer() {
             } else {
                 currentQuestion++;
             }
+            // once answered do not let select another answer
+            answeredFlag = false;
+            span1.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
+            span2.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
+            span3.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
+            span4.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
             displayQuestion();
         }
     },1000);
