@@ -29,6 +29,13 @@ var answeredFlag = false;
 var quizOverFlag = false;
 var correctFlag = false;
 var wrongFlag = false;
+// variable to define page to show
+// 0 as start page
+// 1 as quiz page
+// 2 as result page
+// 3 as score page
+var page = 0;
+// variable to define quiz time
 var timeLeft = 40;
 
 // define body of document
@@ -61,6 +68,10 @@ var span4 = document.createElement("span");
 var horzLine = document.createElement("hr");
 var result = document.createElement("div");
 
+// variable to show Start Quiz button
+var startButton = document.createElement("div");
+var spanStart = document.createElement("span");
+
 // creating elements
 body.appendChild(navBar);
 navBar.appendChild(showScore);
@@ -83,6 +94,10 @@ body.appendChild(horzLine);
 body.appendChild(result);
 result.setAttribute("id", "displayResults");
 
+// div and span to show start quiz button
+body.appendChild(startButton);
+body.appendChild(spanStart);
+
 // document.getElementById("time").innerHTML = "time " + timeLeft;
 
 
@@ -98,11 +113,13 @@ li3.setAttribute("style", "margin-bottom: 1em; line-height: 1.2em;");
 li4.setAttribute("style", "margin-bottom: 1em; line-height: 1.2em;");
 horzLine.setAttribute("style", "color: gray; margin: auto; width: 50%;");
 result.setAttribute("style", "color: gray; font-style: italic; margin: auto; width: 50%; text-align: left; font-size: 20px");
+startButton.setAttribute("style", "margin-bottom: 1em; line-height: 1.2em;");
+spanStart.setAttribute("style", "width: 20%; text-align: center; margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
 
- span1.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
- span2.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
- span3.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
- span4.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
+span1.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
+span2.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
+span3.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
+span4.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
 
 // mouse event hover over answers to change back ground volor
 span1.addEventListener("mouseover", event =>{
@@ -286,6 +303,7 @@ function runningTimer() {
 
             if (!quizOverFlag) {
                 // once answered do not let select another answer
+                showTime.setAttribute("style", "display: none");
                 answeredFlag = false;
                 span1.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
                 span2.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
@@ -332,15 +350,41 @@ function displayNavBar() {
 //    showTime.textContent = timeLeft;
 }
 
-
-
-
-if (!quizOverFlag){
-//    displayNavBar();
-    displayQuestion();
-} else {
+function displayStart(){
+    horzLine.setAttribute("style", "display: none;");
+    h1El.setAttribute("style", "margin: auto; margin-top: 10%; width: 50%; text-align: center;");
+    Answers.setAttribute("style", "margin: auto; margin-top: 2em; width: 50%; text-align: center; font-size: 20px");
+    startButton.setAttribute("style", "margin-top: 3em; line-height: 1.2em;");
+    spanStart.setAttribute("style", "margin-left: 48%;  padding: .5em; width: 20%; color: white; text-align: center; border-radius: .3em; background-color: #7e307e;");
     displayNavBar();
-    displayResults();    
+    message = "Coding Quiz Challange"
+    h1El.textContent = message;
+    message = "Try to answer the following code-related questions within the time";
+    message += "limit. Keep in mind that incorrect answers will penalie your scoretime";
+    message += "by ten seconds!";
+    Answers.textContent = message;
+    message = "Start Quiz";
+    spanStart.textContent = message;
 }
+
+if (page === 0) {
+    displayStart();
+} else if (page == 1) {
+    displayQuestion();
+} else if (page == 2) {
+    displayResults();
+} else if (page == 3) {
+    displayHighScore();
+} else {
+    displayResults();
+}
+
+// if (!quizOverFlag){
+// //    displayNavBar();
+//     displayQuestion();
+// } else {
+//     displayNavBar();
+//     displayResults();    
+// }
 
 
