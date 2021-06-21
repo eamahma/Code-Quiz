@@ -69,6 +69,7 @@ var horzLine = document.createElement("hr");
 var result = document.createElement("div");
 
 // variable to show Start Quiz button
+var startMessage = document.createElement("div");
 var startButton = document.createElement("div");
 var spanStart = document.createElement("span");
 
@@ -95,6 +96,7 @@ body.appendChild(result);
 result.setAttribute("id", "displayResults");
 
 // div and span to show start quiz button
+body.appendChild(startMessage);
 body.appendChild(startButton);
 body.appendChild(spanStart);
 
@@ -120,6 +122,9 @@ span1.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; b
 span2.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
 span3.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
 span4.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
+startMessage.setAttribute("style", "margin: auto; width: 50%; text-align: center; font-size: 20px");
+startButton.setAttribute("style", "margin-top: 3em; line-height: 1.2em;");  
+spanStart.setAttribute("style", "margin-left: 48%;  padding: .5em; width: 20%; color: white; text-align: center; border-radius: .3em; background-color: #7e307e;");
 
 // mouse event hover over answers to change back ground volor
 span1.addEventListener("mouseover", event =>{
@@ -154,116 +159,92 @@ span4.addEventListener("mouseout", event =>{
         span4.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
 });
 
+// hover over Start Quiz button
+spanStart.addEventListener("mouseover", event =>{
+    span1.setAttribute("style", "margin-left: 48%;  padding: .5em; width: 20%; color: white; text-align: center; border-radius: .3em; background-color: #800080");
+});
+
+spanStart.addEventListener("mouseout", event =>{
+    span1.setAttribute("style", "margin-left: 48%;  padding: .5em; width: 20%; color: white; text-align: center; border-radius: .3em; background-color: #7e307e;");
+});
+
+
 span1.addEventListener("click", event => {
-    // once answered do not let select another answer
-    // if (!answeredFlag) {
-        // if correct answer is first choice
-        if(questions[currentQuestion].answer == 0){
-            horzLine.setAttribute("style", "color: gray; margin: auto; width: 50%;");
-            result.textContent = "Correct";
-            correctAnswers++;
-            correctFlag = true;
-        } else {
-            horzLine.setAttribute("style", "color: gray; margin: auto; width: 50%;");
-            result.textContent = "Wrong";
-            timeLeft = timeLeft - 10;
-            wrongFlag = true;
-        }
-        result.setAttribute("style", "display: on; color: gray; font-style: italic; margin: auto; width: 50%; text-align: left; font-size: 20px");
-        answeredFlag = true;
-    
-    // } else {
-    //     if(correctFlag) {
-    //         // runningTimer();
-    //         correctFlag = false;
-    //     } else {
-    //         timeLeft -= 10;
-    //         // runningTimer();
-    //         wrongFlag = false;
-    //     }
-    //}
+    if(questions[currentQuestion].answer == 0){
+        horzLine.setAttribute("style", "color: gray; margin: auto; width: 50%;");
+        result.textContent = "Correct";
+        correctAnswers++;
+        correctFlag = true;
+    } else {
+        horzLine.setAttribute("style", "color: gray; margin: auto; width: 50%;");
+        result.textContent = "Wrong";
+        timeLeft = timeLeft - 10;
+        wrongFlag = true;
+    }
+    result.setAttribute("style", "display: on; color: gray; font-style: italic; margin: auto; width: 50%; text-align: left; font-size: 20px");
+    answeredFlag = true;
 });
 
 span2.addEventListener("click", event => {
-    // once answered do not let select another answer
-    // if (!answeredFlag) {
-        // if correct answer is second choice
-        if(questions[currentQuestion].answer == 1){
-            horzLine.setAttribute("style", "color: gray; margin: auto; width: 50%;");
-            result.textContent = "Correct";
-            correctAnswers++;
-            correctFlag = true;
-        } else {
-            horzLine.setAttribute("style", "color: gray; margin: auto; width: 50%;");
-            result.textContent = "Wrong";
-            wrongFlag = true;
-            timeLeft = timeLeft - 10;
-        }
-        result.setAttribute("style", "display: on; color: gray; font-style: italic; margin: auto; width: 50%; text-align: left; font-size: 20px");
-    //     answeredFlag = true;
-    // }
+    if(questions[currentQuestion].answer == 1){
+        horzLine.setAttribute("style", "color: gray; margin: auto; width: 50%;");
+        result.textContent = "Correct";
+        correctAnswers++;
+        correctFlag = true;
+    } else {
+        horzLine.setAttribute("style", "color: gray; margin: auto; width: 50%;");
+        result.textContent = "Wrong";
+        wrongFlag = true;
+        timeLeft = timeLeft - 10;
+    }
+    result.setAttribute("style", "display: on; color: gray; font-style: italic; margin: auto; width: 50%; text-align: left; font-size: 20px");
 });
 
 span3.addEventListener("click", event => {
-    // once answered do not let select another answer
-    // if (!answeredFlag) {
-        // if correct answer is third choice
-        if(questions[currentQuestion].answer == 2){
-            horzLine.setAttribute("style", "color: gray; margin: auto; width: 50%;");
-            result.textContent = "Correct";
-            correctAnswers++;
-            correctFlag = true;
-        } else {
-            horzLine.setAttribute("style", "color: gray; margin: auto; width: 50%;");
-            result.textContent = "Wrong";
-            wrongFlag = true;
-            timeLeft = timeLeft - 10;
-        }
-        result.setAttribute("style", "display: on; color: gray; font-style: italic; margin: auto; width: 50%; text-align: left; font-size: 20px");
-        answeredFlag = true;
-    // } else {
-    //     if(correctFlag) {
-    //         runningTimer();
-    //         correctFlag = false;
-    //     } else {
-    //         timeLeft -= 10;
-    //         runningTimer();
-    //         wrongFlag = false;
-    //     }
-    // }
+    if(questions[currentQuestion].answer == 2){
+        horzLine.setAttribute("style", "color: gray; margin: auto; width: 50%;");
+        result.textContent = "Correct";
+        correctAnswers++;
+        correctFlag = true;
+    } else {
+        horzLine.setAttribute("style", "color: gray; margin: auto; width: 50%;");
+        result.textContent = "Wrong";
+        wrongFlag = true;
+        timeLeft = timeLeft - 10;
+    }
+    result.setAttribute("style", "display: on; color: gray; font-style: italic; margin: auto; width: 50%; text-align: left; font-size: 20px");
+    answeredFlag = true;
 });
 
 span4.addEventListener("click", event => {
-    // if (!answeredFlag) {
-        // if correct answer is fourth choice
-        if(questions[currentQuestion].answer == 3){
-            horzLine.setAttribute("style", "color: gray; margin: auto; width: 50%;");
-            result.textContent = "Correct";
-            correctAnswers++;
-            correctFlag = true;
-        } else {
-            horzLine.setAttribute("style", "color: gray; margin: auto; width: 50%;");
-            result.textContent = "Wrong";
-            timeLeft = timeLeft - 10;
-            wrongFlag = true;
-        }
-        result.setAttribute("style", "display: on; color: gray; font-style: italic; margin: auto; width: 50%; text-align: left; font-size: 20px");
-        answeredFlag = true;
-    // } else {
-    //     if(correctFlag) {
-    //         runningTimer();
-    //         correctFlag = false;
-    //     } else {
-    //         timeLeft -= 10;
-    //         runningTimer();
-    //         wrongFlag = false;
-    //     }
-    //}
+    if(questions[currentQuestion].answer == 3){
+        horzLine.setAttribute("style", "color: gray; margin: auto; width: 50%;");
+        result.textContent = "Correct";
+        correctAnswers++;
+        correctFlag = true;
+    } else {
+        horzLine.setAttribute("style", "color: gray; margin: auto; width: 50%;");
+        result.textContent = "Wrong";
+        timeLeft = timeLeft - 10;
+        wrongFlag = true;
+    }
+    result.setAttribute("style", "display: on; color: gray; font-style: italic; margin: auto; width: 50%; text-align: left; font-size: 20px");
+    answeredFlag = true;
+});
+
+spanStart.addEventListener("click", event => {
+    page = 1;
+    Answers.setAttribute("style", "display: none;");
+    spanStart.setAttribute("style", "display: none;");
+    Answers.setAttribute("style", "margin: auto; width: 50%; text-align: left; font-size: 20px");
+    span1.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; text-align: left; color: black; background-color: #7e307e;");
+    span2.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
+    span3.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
+    span4.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
+    displayQuestion();
 });
 
 function runningTimer() {
-    // set timer to timeLeft x 1000 msec
-    // var timeLeft = 5;
     var timeInterval = setInterval(function(){
         if (timeLeft > 1) {
             // if timer greater than 0 reduce timer
@@ -313,6 +294,7 @@ function runningTimer() {
             } else {
                 horzLine.setAttribute("style", "display: none;");
                 result.setAttribute("style", "display: none;");
+                page = 2;
                 displayResults();
             }
         }
@@ -325,6 +307,13 @@ function displayQuestion() {
     message = "Time ";
     message = message.concat(timeLeft);
     showTime.textContent = message;
+    startMessage.setAttribute("style", "display: none;");
+    spanStart.setAttribute("style", "display: none;");
+    Answers.setAttribute("style", "margin: auto; width: 50%; text-align: left; font-size: 20px");
+    span1.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
+    span2.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
+    span3.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
+    span4.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
 
     h1El.textContent = questions[currentQuestion].question;
     span1.textContent = questions[currentQuestion].choices[0];
@@ -352,17 +341,20 @@ function displayNavBar() {
 
 function displayStart(){
     horzLine.setAttribute("style", "display: none;");
+    Answers.setAttribute("style", "display: none;");
+    span1.setAttribute("style", "display: none;");
+    span2.setAttribute("style", "display: none;");
+    span3.setAttribute("style", "display: none;");
+    span4.setAttribute("style", "display: none;");
     h1El.setAttribute("style", "margin: auto; margin-top: 10%; width: 50%; text-align: center;");
-    Answers.setAttribute("style", "margin: auto; margin-top: 2em; width: 50%; text-align: center; font-size: 20px");
-    startButton.setAttribute("style", "margin-top: 3em; line-height: 1.2em;");
-    spanStart.setAttribute("style", "margin-left: 48%;  padding: .5em; width: 20%; color: white; text-align: center; border-radius: .3em; background-color: #7e307e;");
+
     displayNavBar();
     message = "Coding Quiz Challange"
     h1El.textContent = message;
     message = "Try to answer the following code-related questions within the time";
     message += "limit. Keep in mind that incorrect answers will penalie your scoretime";
     message += "by ten seconds!";
-    Answers.textContent = message;
+    startMessage.textContent = message;
     message = "Start Quiz";
     spanStart.textContent = message;
 }
@@ -379,12 +371,5 @@ if (page === 0) {
     displayResults();
 }
 
-// if (!quizOverFlag){
-// //    displayNavBar();
-//     displayQuestion();
-// } else {
-//     displayNavBar();
-//     displayResults();    
-// }
 
 
