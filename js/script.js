@@ -37,6 +37,10 @@ var wrongFlag = false;
 var page = 0;
 // variable to define quiz time
 var timeLeft = 40;
+// an arry of initials
+var initials = [];
+// high scores Array
+var high_scores =[];
 
 // define body of document
 var body = document.body;
@@ -68,10 +72,18 @@ var span4 = document.createElement("span");
 var horzLine = document.createElement("hr");
 var result = document.createElement("div");
 
-// variable to show Start Quiz button
+// variables to show start screen Message and Start Quiz button
 var startMessage = document.createElement("div");
 var startButton = document.createElement("div");
 var spanStart = document.createElement("span");
+
+// variables to show and get initials for high score
+var addInitial = document.createElement("div");
+var initialLabel = document.createElement("span");
+var initialInput = document.createElement("input");
+var initialButton = document.createElement("span");
+var initialList = document.createElement("ul");
+var initialListItem = document.createElement("li");
 
 // creating elements
 body.appendChild(navBar);
@@ -100,7 +112,11 @@ body.appendChild(startMessage);
 body.appendChild(startButton);
 body.appendChild(spanStart);
 
-// document.getElementById("time").innerHTML = "time " + timeLeft;
+// div and span to add initials
+body.appendChild(addInitial);
+addInitial.appendChild(initialLabel);
+addInitial.appendChild(initialInput);
+addInitial.appendChild(initialButton);
 
 
 // set attributes
@@ -122,13 +138,25 @@ span1.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; b
 span2.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
 span3.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
 span4.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
+span1.setAttribute("class", "button questions");
+span2.setAttribute("class", "button questions");
+span3.setAttribute("class", "button questions");
+span4.setAttribute("class", "button questions");
+
 startMessage.setAttribute("style", "margin: auto; width: 50%; text-align: center; font-size: 20px");
-startButton.setAttribute("style", "margin-top: 3em; line-height: 1.2em;");  
+startButton.setAttribute("style", "margin-top: 3em; line-height: 1.2em;");
+spanStart.setAttribute("class", "button");
 spanStart.setAttribute("style", "margin-left: 48%;  padding: .5em; width: 20%; color: white; text-align: center; border-radius: .3em; background-color: #7e307e;");
+// addInitial.setAttribute("style", "margin: auto; width: 50%; text-align: center; font-size: 20px");
+// initialButton.setAttribute("style", "margin-left: 1em;  padding: .5em; width: 20%; border-radius: .3em; background-color: #7e307e;");  
+addInitial.setAttribute("style", "display: none;");
+initialButton.setAttribute("style", "display: none;");  
+initialButton.setAttribute("class", "button");
 
 // mouse event hover over answers to change back ground volor
 span1.addEventListener("mouseover", event =>{
-    span1.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #800080;");
+    span1.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em;");
+    console.log("Span1");
 });
 
 span1.addEventListener("mouseout", event =>{
@@ -161,11 +189,13 @@ span4.addEventListener("mouseout", event =>{
 
 // hover over Start Quiz button
 spanStart.addEventListener("mouseover", event =>{
-    span1.setAttribute("style", "margin-left: 48%;  padding: .5em; width: 20%; color: white; text-align: center; border-radius: .3em; background-color: #800080");
+    // span1.setAttribute("style", "margin-left: 48%;  padding: .5em; width: 20%; color: white; text-align: center; border-radius: .3em; background-color: #800080");
+    // span1.setAttribute("style", "margin-left: 48%;  padding: .5em; width: 20%; border-radius: .3em; background-color: #800080");
 });
 
 spanStart.addEventListener("mouseout", event =>{
-    span1.setAttribute("style", "margin-left: 48%;  padding: .5em; width: 20%; color: white; text-align: center; border-radius: .3em; background-color: #7e307e;");
+    // span1.setAttribute("style", "margin-left: 48%;  padding: .5em; width: 20%; color: white; text-align: center; border-radius: .3em; background-color: #7e307e;");
+    // span1.setAttribute("style", "margin-left: 48%;  padding: .5em; width: 20%; border-radius: .3em; background-color: #7e307e;");
 });
 
 
@@ -237,12 +267,52 @@ spanStart.addEventListener("click", event => {
     Answers.setAttribute("style", "display: none;");
     spanStart.setAttribute("style", "display: none;");
     Answers.setAttribute("style", "margin: auto; width: 50%; text-align: left; font-size: 20px");
-    span1.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; text-align: left; color: black; background-color: #7e307e;");
-    span2.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
-    span3.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
-    span4.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
+    // span1.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; text-align: left; color: black; background-color: #7e307e;");
+    // span2.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
+    // span3.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
+    // span4.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
     displayQuestion();
 });
+
+
+function initInitials() {
+//    var storedInitials = JSON.parse(localStorage.getItem("initials"));
+
+    if (storedInitials != null) {
+        initials = storedInitials;
+    }
+    renderInitials();
+}
+
+function renderInitials() {
+    for (var i = 0; i < initials.length; i++) {
+        var initial = initials[i];
+        var li = document.createElement("li");
+        li.textContent = initial;
+        initialList.appendChild(li);
+        console.log(initial);
+    }
+}
+
+function storeInitials() {
+    localStorage.setItem("initials", JSON.stringify(initials));
+}
+
+function highScores (){
+    var initialText = initialInput.value.trim();
+    if (initialText !== "") {
+        var highScoreAr = JSON.parse(localStorage.getItem("highScores")) || [];
+        var currentUserScore = {
+            score: correctAnswers * 5,
+            initials: initialText 
+        }
+        highScoreAr.push(currentUserScore);
+        localStorage.setItem("highScores", JSON.stringify(highScoreAr));
+    }    
+    console.log(currentUserScore);
+}
+
+initialButton.onclick = highScores;
 
 function runningTimer() {
     var timeInterval = setInterval(function(){
@@ -286,14 +356,18 @@ function runningTimer() {
                 // once answered do not let select another answer
                 showTime.setAttribute("style", "display: none");
                 answeredFlag = false;
-                span1.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
-                span2.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
-                span3.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
-                span4.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
+                Answers.setAttribute("style", "margin: auto; width: 50%; text-align: left; font-size: 20px");
+                // span1.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
+                // span2.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
+                // span3.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
+                // span4.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
                 displayQuestion();
             } else {
                 horzLine.setAttribute("style", "display: none;");
                 result.setAttribute("style", "display: none;");
+                addInitial.setAttribute("style", "margin: auto; width: 50%; text-align: center; font-size: 20px");
+                initialButton.setAttribute("style", "margin-left: 1em;  padding: .5em; width: 20%; border-radius: .3em; background-color: #7e307e;");  
+
                 page = 2;
                 displayResults();
             }
@@ -307,13 +381,14 @@ function displayQuestion() {
     message = "Time ";
     message = message.concat(timeLeft);
     showTime.textContent = message;
-    startMessage.setAttribute("style", "display: none;");
-    spanStart.setAttribute("style", "display: none;");
     Answers.setAttribute("style", "margin: auto; width: 50%; text-align: left; font-size: 20px");
     span1.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
     span2.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
     span3.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
     span4.setAttribute("style", "margin: .5em; padding: .5em; border-radius: .3em; background-color: #7e307e;");
+    startMessage.setAttribute("style", "display: none;");
+    spanStart.setAttribute("style", "display: none;");
+
 
     h1El.textContent = questions[currentQuestion].question;
     span1.textContent = questions[currentQuestion].choices[0];
@@ -331,6 +406,9 @@ function displayResults() {
     message = "Your final score is:";
     message += correctAnswers * 5 + ".";
     Answers.textContent = message;
+    initialLabel.textContent = "Enter initials: ";
+    initialInput.textContent = "";
+    initialButton.textContent = "Submit";
 }
 
 function displayNavBar() {
@@ -352,12 +430,26 @@ function displayStart(){
     message = "Coding Quiz Challange"
     h1El.textContent = message;
     message = "Try to answer the following code-related questions within the time";
-    message += "limit. Keep in mind that incorrect answers will penalie your scoretime";
+    message += "limit. Keep in mind that incorrect answers will penalize your scoretime";
     message += "by ten seconds!";
     startMessage.textContent = message;
     message = "Start Quiz";
     spanStart.textContent = message;
 }
+
+function displayScore() {
+    message = "High Scores";
+    Answers.textContent = message;
+    var highScoreAr = JSON.parse(localStorage.getItem("highScores")) || [];
+
+    console.log(highScoreAr.length);
+    console.log(highScoreAr);
+    for (var i = 0; i < highScoreAr.length; i++) {
+        console.log(highScoreAr[i].initials,highScoreAr[i].score);
+    }
+}
+
+showScore.onclick = displayScore;
 
 if (page === 0) {
     displayStart();
