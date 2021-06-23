@@ -477,7 +477,8 @@ function displayStart(){
 
 function displayScore() {
 //    Answers.setAttribute("style", "margin: auto; width: 50%; text-align: left; font-size: 20px");
-
+    startMessage.setAttribute("style", "display: none;");
+    spanStart.setAttribute("style", "display: none;");
     var highScoreAr = JSON.parse(localStorage.getItem("highScores")) || [];
 
     console.log(highScoreAr.length);
