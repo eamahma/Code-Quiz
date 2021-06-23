@@ -94,6 +94,8 @@ var returnButton = document.createElement("span");
 // var for dynamic list for scores 
 var scoreSection = document.createElement("div");
 var scorelistEl = document.createElement("ol");
+var scorelistGolobal;
+
 
 
 // creating elements
@@ -497,8 +499,9 @@ function displayScore() {
     addInitial.setAttribute("style", "display: none;");
     h1El.textContent = "High Scores";
     var scorelistEl = document.createElement("ol");
-//    Answers.appendChild(listEl);
     scoreSection.appendChild(scorelistEl);
+    scoreSection.setAttribute("id", "score-section");
+    scorelistEl.setAttribute("id", "score-list");
     scoreSection.setAttribute("style", "margin: auto; width: 50%; text-align: left; font-size: 20px");
 
     for (var i = 0; i < highScoreAr.length; i++) {
@@ -518,15 +521,25 @@ function displayScore() {
 //clearButton.onclick = localStorage.clear();
 clearButton.addEventListener("click", event => {
     localStorage.clear();
-//    scoreSection.setAttribute("style", "display: none;");
+    let scoreSection = document.getElementById('score-section');
+    while (scoreSection.firstChild) {
+        scoreSection.removeChild(scoreSection.firstChild);  
+    }    
     displayScore();
 });
 
 returnButton.addEventListener("click", event => {
+    let scoreSection = document.getElementById('score-section');
+    while (scoreSection.firstChild) {
+        scoreSection.removeChild(scoreSection.firstChild);  
+    }             
     Answers.setAttribute("style", "display: none");
     scoreButtons.setAttribute("style", "display: none");
     scoreSection.setAttribute("style", "display: none");
     returnButton.setAttribute("style", "display: none");
+//    scoreSection.removeChild('score-list');
+
+    scoreSection.innerHTML = '';
     page = 0;
     correctAnswers = 0;
     currentQuestion = 0;
